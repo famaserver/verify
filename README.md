@@ -32,7 +32,9 @@ Before running this project, you need to have the following installed on your sy
 2.   Create the Database and Tables After downloading the project, create the database by logging into MySQL or MariaDB and running the following commands to create the necessary tables:
    ------------------------------------
 CREATE DATABASE verification_system;
+
 USE verification_system;
+
 CREATE TABLE inquiries (
     id INT AUTO_INCREMENT PRIMARY KEY,
     mobile VARCHAR(15) NOT NULL,
@@ -40,5 +42,6 @@ CREATE TABLE inquiries (
     matched BOOLEAN NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
    ------------------------------------
 
