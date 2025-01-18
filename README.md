@@ -1,30 +1,66 @@
-# verify phone number and national_code
+#  Verification mobilenumber and national_code
+#  https://famaserver.com
+This project is an online verification system for checking the match between mobile numbers and national codes. The system first checks if the entered information has been previously saved in the database. If the data is duplicate, it displays a "Duplicate inquiry" message. Otherwise, the request is sent to a web service to get the result, which is then saved in the database.
 
-# Mini Project: Verification System
+## Features
+- Check if the mobile number and national code have been previously stored in the database.
+- If the inquiry is duplicate, the request to the web service is not sent.
+- If the information is new, the request is sent to the web service, and the result (success or failure) is stored in the database.
+- Use of a web service to perform the verification.
 
-این پروژه یک سیستم استعلام آنلاین برای بررسی تطابق شماره موبایل و کد ملی است. سیستم ابتدا اطلاعات وارد شده را بررسی می‌کند که آیا پیش‌تر در دیتابیس ثبت شده‌اند یا خیر. اگر اطلاعات تکراری باشد، پیامی مبنی بر "استعلام تکراری" نمایش داده می‌شود. در غیر این صورت، درخواست به وب‌سرویس ارسال می‌شود تا نتیجه را دریافت کرده و در دیتابیس ذخیره کند.
+## Technologies and Tools
+- **PHP**: For writing server-side scripts.
+- **MySQL**: For storing inquiry results.
+- **cURL**: For sending HTTP requests to the web service.
+- **HTML/CSS**: For building the user interface.
 
-## ویژگی‌ها
-- بررسی اینکه آیا اطلاعات (شماره موبایل و کد ملی) قبلاً در دیتابیس ثبت شده‌اند یا خیر.
-- اگر استعلام تکراری باشد، از ارسال درخواست به وب‌سرویس جلوگیری می‌شود.
-- در صورت جدید بودن اطلاعات، درخواست به وب‌سرویس ارسال شده و نتیجه استعلام (موفق یا ناموفق) ذخیره می‌شود.
-- استفاده از وب‌سرویس برای انجام استعلام.
+## Prerequisites
+Before running this project, you need to have the following installed on your system:
+- **PHP** (version 7.0 or higher)
+- **MySQL** or **MariaDB**
+- **Apache** or **Nginx** as the web server
+- **cURL** (usually pre-installed with PHP)
 
-## تکنولوژی‌ها و ابزارها
-- **PHP**: برای نوشتن اسکریپت‌های سمت سرور.
-- **MySQL**: برای ذخیره‌سازی نتایج استعلام‌ها.
-- **cURL**: برای ارسال درخواست‌های HTTP به وب‌سرویس.
-- **HTML/CSS**: برای ساخت رابط کاربری.
+## Setup Instructions
 
-## پیش‌نیازها
-قبل از اجرای این پروژه، باید موارد زیر را در سیستم خود نصب داشته باشید:
-- **PHP** (نسخه 7.4 یا بالاتر)
-- **MySQL** یا **MariaDB**
-- **Apache** یا **Nginx** به‌عنوان وب‌سرور
-- **cURL** (معمولاً به‌صورت پیش‌فرض در PHP نصب است)
+1. **Clone the Project**
+   First, clone or download the project code:
 
-## نحوه راه‌اندازی
-1. ابتدا کدهای پروژه را کلون یا دانلود کنید.
-   
    ```bash
    git clone https://github.com/famaserver/verify.git
+---------------------------------------
+2.   Create the Database and Tables After downloading the project, create the database by logging into MySQL or MariaDB and running the following commands to create the necessary tables:
+   ------------------------------------
+   CREATE DATABASE verification_system;
+
+USE verification_system;
+
+CREATE TABLE inquiries (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    mobile VARCHAR(15) NOT NULL,
+    national_code VARCHAR(10) NOT NULL,
+    matched BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+   ------------------------------------
+  This will create a database named verification_system and a table called inquiries to store the mobile numbers, national codes, matching results, and timestamps.
+
+3.Configure the Database Connection Inside the db.php file, you need to configure your database connection by providing the correct credentials:
+---------------------------------------
+<?php
+$servername = "localhost"; // Database server address
+$username = "root"; // Database username
+$password = ""; // Database password
+$dbname = "verification_system"; // Database name
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+-------------------------------------
+4.Configure the API Key In the verify.php file, replace the placeholder for the API key with your actual key:
+------------------
+$token = "your-api-key-here";
+------------------
