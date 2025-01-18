@@ -31,10 +31,8 @@ Before running this project, you need to have the following installed on your sy
 ---------------------------------------
 2.   Create the Database and Tables After downloading the project, create the database by logging into MySQL or MariaDB and running the following commands to create the necessary tables:
    ------------------------------------
-   CREATE DATABASE verification_system;
-
+CREATE DATABASE verification_system;
 USE verification_system;
-
 CREATE TABLE inquiries (
     id INT AUTO_INCREMENT PRIMARY KEY,
     mobile VARCHAR(15) NOT NULL,
@@ -43,24 +41,4 @@ CREATE TABLE inquiries (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
    ------------------------------------
-  This will create a database named verification_system and a table called inquiries to store the mobile numbers, national codes, matching results, and timestamps.
 
-3.Configure the Database Connection Inside the db.php file, you need to configure your database connection by providing the correct credentials:
----------------------------------------
-<?php
-$servername = "localhost"; // Database server address
-$username = "root"; // Database username
-$password = ""; // Database password
-$dbname = "verification_system"; // Database name
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-?>
--------------------------------------
-4.Configure the API Key In the verify.php file, replace the placeholder for the API key with your actual key:
-------------------
-$token = "your-api-key-here";
-------------------
